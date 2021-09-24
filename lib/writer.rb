@@ -14,6 +14,6 @@ class Writer
   end
 
   def creation_message
-    p "Created '#{translate_file}' containing #{split_text.length} characters."
+    puts "Created '#{translate_file}' containing #{split_text.length} characters."
   end
 end
