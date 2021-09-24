@@ -8,8 +8,8 @@ class Writer
   end
 
   def split_text
-    split_text = File.readlines(text_file, chomp: true).flat_map do |letter|
-      letter.split('')
+    split_text = File.readlines(text_file, chomp: true).flat_map do |line|
+      line.split('')
     end
   end
 
