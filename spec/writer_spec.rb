@@ -18,9 +18,17 @@ describe Writer do
     expect(@writer.translate_file).to eq('translate1.txt')
   end
 
-  describe '#creation_message' do
-    it 'sends a message stating creation of file and character count' do
-      expect(@writer.creation_message).to include('Created')
+  describe 'split_text' do
+    it 'splits text into an array' do
+      expect(@writer.split_text.length).to eq(11)
+      expect(@writer.split_text).to be_a(Array)
+    end
+  end
+
+  describe 'creation_message' do
+    it 'sends a message confirming creation of the new file' do
+      expected = "Created 'translate1.txt' containing 11 characters."
+      expect(@writer.creation_message).to eq(expected)
     end
   end
 end
