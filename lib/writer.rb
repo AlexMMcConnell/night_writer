@@ -43,11 +43,7 @@ class Writer
   def first_two_dots(elements)
     File.open(translate_file, 'a') do |file|
       elements.each do |array|
-        if array.length == 6
-          file.write "#{array[0]}#{array[1]}"
-        else
-          file.write "#{array[0]}#{array[1]}#{array[2]}#{array[3]}"
-        end
+        file.write "#{array[0]}#{array[1]}"
       end
       file.write "\n"
     end
@@ -56,11 +52,7 @@ class Writer
   def middle_two_dots(elements)
     File.open(translate_file, 'a') do |file|
       elements.each do |array|
-        if array.length == 6
-          file.write "#{array[2]}#{array[3]}"
-        else
-          file.write "#{array[4]}#{array[5]}#{array[6]}#{array[7]}"
-        end
+        file.write "#{array[2]}#{array[3]}"
       end
       file.write "\n"
     end
@@ -69,11 +61,7 @@ class Writer
   def last_two_dots(elements)
     File.open(translate_file, 'a') do |file|
       elements.each do |array|
-        if array.length == 6
-          file.write "#{array[4]}#{array[5]}"
-        else
-          file.write "#{array[8]}#{array[9]}#{array[10]}#{array[11]}"
-        end
+        file.write "#{array[4]}#{array[5]}"
       end
       file.write "\n"
     end
