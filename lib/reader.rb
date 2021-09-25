@@ -1,0 +1,59 @@
+require_relative 'hash_creator'
+
+class Reader
+  attr_reader :text_file,
+              :translate_file,
+              :creator
+
+  def initialize(files)
+    @text_file = files[0]
+    @translate_file = files[1]
+    @creator = HashCreator.new
+  end
+
+  def split_braille
+    braille_by_character = []
+    braille_by_lines.each do |line|
+      split_line = line.split('')
+      num = 0
+      until (split_line == [])
+        braille_by_character[num.floor] ||= []
+        braille_by_character[num.floor] << split_line.shift
+        num += 0.5
+      end
+    end
+    braille_by_character
+  end
+
+  def braille_by_lines
+    braille_by_lines = ['', '', '']
+    split_braille = File.readlines(text_file, chomp: true)
+    until split_braille == []
+      braille_by_lines[0] << split_braille.shift
+      braille_by_lines[1] << split_braille.shift
+      braille_by_lines[2] << split_braille.shift
+    end
+    braille_by_lines
+  end
+
+  def creation_message
+    p "Created '#{translate_file}' containing #{split_braille.length} characters."
+  end
+
+  def translator
+    braille_to_text_hash = creator.braille_to_text
+    split_braille.map do |character|
+      braille_to_text_hash[character]
+    end
+  end
+
+  def read
+    characters = translator
+    File.open(translate_file, 'w') do |file|
+      until characters == []
+        file.write "#{characters.shift}"
+      end
+    end
+    characters
+  end
+end
