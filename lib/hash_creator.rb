@@ -14,7 +14,7 @@ class HashCreator
     split_braille = splitter('./lib/braille.txt')
     braille_to_text_hash = {}
     split_alphabet.zip(split_braille) do |alpha, braille|
-      text_to_braille_hash[braille] = alpha
+      braille_to_text_hash[braille.split('')] = alpha
     end
     braille_to_text_hash
   end
