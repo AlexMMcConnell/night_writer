@@ -35,6 +35,13 @@ describe Writer do
       expected = "Created 'translate1.txt' containing 4 characters."
       expect(@writer.creation_message).to eq(expected)
     end
+
+    it 'sends Invalid text file name if invalid text file' do
+      allow(@writer).to receive(:text_file).and_return('nananahahaha')
+
+      expected = "Invalid text file name."
+      expect(@writer.creation_message).to eq(expected)
+    end
   end
 
   describe 'translator' do
