@@ -14,13 +14,13 @@ describe Reader do
   end
 
   it 'has readable attributes' do
-    expect(@reader.text_file).to eq('braille1.txt')
+    expect(@reader.braille_file).to eq('braille1.txt')
     expect(@reader.translate_file).to eq('translated2.txt')
   end
 
   describe 'split_braille' do
-    it 'splits text into an array' do
-      allow(@reader).to receive(:text_file).and_return('braille1.txt')
+    it 'splits braille into an array' do
+      allow(@reader).to receive(:braille_file).and_return('braille1.txt')
 
       expect(@reader.split_braille.length).to eq(46)
       expect(@reader.split_braille).to be_a(Array)
@@ -33,6 +33,13 @@ describe Reader do
       allow(@reader).to receive(:split_braille).and_return([1, 2, 3, 4])
 
       expected = "Created 'translated2.txt' containing 4 characters."
+      expect(@reader.creation_message).to eq(expected)
+    end
+
+    it 'sends Invalid braille file name if invalid braille file' do
+      allow(@reader).to receive(:braille_file).and_return('nananahahaha')
+
+      expected = "Invalid braille file name."
       expect(@reader.creation_message).to eq(expected)
     end
   end
