@@ -1,12 +1,12 @@
 require_relative 'hash_creator'
 
 class Reader
-  attr_reader :text_file,
+  attr_reader :braille_file,
               :translate_file,
               :creator
 
   def initialize(files)
-    @text_file = files[0]
+    @braille_file = files[0]
     @translate_file = files[1]
     @creator = HashCreator.new
   end
@@ -27,7 +27,7 @@ class Reader
 
   def braille_by_lines
     braille_by_lines = ['', '', '']
-    split_braille = File.readlines(text_file, chomp: true)
+    split_braille = File.readlines(braille_file, chomp: true)
     until split_braille == []
       braille_by_lines[0] << split_braille.shift
       braille_by_lines[1] << split_braille.shift
@@ -37,7 +37,11 @@ class Reader
   end
 
   def creation_message
-    p "Created '#{translate_file}' containing #{split_braille.length} characters."
+    if File.file?(braille_file)
+      p "Created '#{translate_file}' containing #{split_braille.length} characters."
+    else
+      p "Invalid braille file name."
+    end
   end
 
   def translator
